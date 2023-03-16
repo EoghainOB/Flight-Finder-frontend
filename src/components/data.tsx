@@ -7,13 +7,16 @@ type ContextProps = {
 };
 
 export const AllContext = createContext<FlightContextType>({
-  flights: [],
-  setFlights: () => {},
+  directFlights: [],
+  setDirectFlights: () => {},
+  indirectFlights: [],
+  setIndirectFlights: () => {},
   destinations: [],
 });
 
 export const Data = ({ children }: ContextProps) => {
-  const [flights, setFlights] = useState<flightTypes[]>([]);
+  const [directFlights, setDirectFlights] = useState<flightTypes[]>([]);
+  const [indirectFlights, setIndirectFlights] = useState<flightTypes[]>([]);
   const [destinations, setDestinations] = useState<string[]>([]);
 
   useEffect(() => {
@@ -32,8 +35,10 @@ export const Data = ({ children }: ContextProps) => {
   return (
     <AllContext.Provider
       value={{
-        setFlights,
-        flights,
+        setIndirectFlights,
+        setDirectFlights,
+        indirectFlights,
+        directFlights,
         destinations,
       }}
     >

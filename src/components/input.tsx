@@ -3,21 +3,11 @@ import axios from "axios";
 import AllContext from "./data";
 import { FlightContextType } from "../types";
 
-interface FormState {
-  departureDestination: string;
-  arrivalDestination: string;
-  returnflight: string;
-  departureAt: string;
-  returnAt: string;
-  adultPassengers: number;
-  childPassengers: number;
-}
-
 const Input = () => {
-  const { setFlights, flights, destinations } =
+  const { setDirectFlights, setIndirectFlights, destinations } =
     useContext<FlightContextType>(AllContext);
 
-  const initialState: FormState = {
+  const initialState = {
     departureDestination: "",
     arrivalDestination: "",
     returnflight: "true",
@@ -27,25 +17,24 @@ const Input = () => {
     childPassengers: 0,
   };
 
-  const [formState, setFormState] = useState<FormState>(initialState);
+  const [formState, setFormState] = useState(initialState);
 
   const searchFlights = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const searchData = {
       departureDestination: formState.departureDestination,
       arrivalDestination: formState.arrivalDestination,
-      returnflight: formState.returnflight,
       departureAt: formState.departureAt,
-      returnAt: formState.returnAt,
-      seats: formState.adultPassengers + formState.childPassengers,
+      seats: +formState.adultPassengers + +formState.childPassengers,
+      priceRangeHigh: 10000,
+      priceRangeLow: 0,
     };
     await axios
-      .post("http://localhost:8080/api/flightsearch", searchData, {
-        headers: { "Content-Type": "application/json" },
-      })
+      .get("http://localhost:8080/api/flightsearch", { params: searchData })
       .then((response) => {
         resetForm();
-        setFlights([...flights, response.data]);
+        setDirectFlights(response.data.data.direct);
+        setIndirectFlights(response.data.data.indirect);
       });
   };
 
@@ -55,6 +44,10 @@ const Input = () => {
 
   const handleInputChange = (e: React.ChangeEvent<EventTarget>) => {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
+    setFlightSearch({
+      ...flightSearch,
+      [name]: value,
+    });
     setFormState({
       ...formState,
       [name]: value,
@@ -67,24 +60,34 @@ const Input = () => {
         <h2>Search flights</h2>
       </div>
       <div className="fromInput">
-        <input
+        <select
           id="flight_from_input"
           name="departureDestination"
-          type="text"
-          placeholder="Departing from"
-          value={formState.departureDestination}
           onChange={handleInputChange}
-        />
+        >
+          <option value="">Departing from</option>
+          {destinations.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="toInput">
-        <input
+        <select
           id="flight_to_input"
           name="arrivalDestination"
-          type="text"
-          placeholder="Arriving at"
-          value={formState.arrivalDestination}
           onChange={handleInputChange}
-        />
+        >
+          <option value="">Arriving at</option>
+          {destinations
+            .filter((option) => option !== formState.departureDestination)
+            .map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+        </select>
       </div>
       <hr />
       <div className="dropdowns">

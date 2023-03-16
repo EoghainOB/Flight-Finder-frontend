@@ -6,12 +6,16 @@ export interface flightTypes {
   returnflight: string;
   departureAt: string;
   returnAt: string;
+  arrivalAt: string;
   adultPassengers: number;
   childPassengers: number;
+  currentflight: flightTypes;
 }
 
 export type FlightContextType = {
-  flights: flightTypes[];
+  directFlights: flightTypes[];
+  indirectFlights: flightTypes[];
   destinations: string[];
-  setFlights: React.Dispatch<React.SetStateAction<flightTypes[]>>;
+  setDirectFlights: React.Dispatch<React.SetStateAction<flightTypes[]>>;
+  setIndirectFlights: React.Dispatch<React.SetStateAction<flightTypes[]>>;
 };
