@@ -4,14 +4,27 @@ import AllContext from "./data";
 import { FlightContextType } from "../types";
 
 const Input = () => {
-  const { setDirectFlights, setIndirectFlights, destinations } =
-    useContext<FlightContextType>(AllContext);
+  const {
+    setDirectFlights,
+    setIndirectFlights,
+    destinations,
+    setFlightSearch,
+    flightSearch,
+  } = useContext(AllContext) as FlightContextType;
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
 
   const initialState = {
     departureDestination: "",
     arrivalDestination: "",
     returnflight: "true",
-    departureAt: "",
+    departureAt: formattedDate,
     returnAt: "",
     adultPassengers: 0,
     childPassengers: 0,
@@ -25,10 +38,11 @@ const Input = () => {
       departureDestination: formState.departureDestination,
       arrivalDestination: formState.arrivalDestination,
       departureAt: formState.departureAt,
-      seats: +formState.adultPassengers + +formState.childPassengers,
+      seats: formState.adultPassengers + formState.childPassengers,
       priceRangeHigh: 10000,
       priceRangeLow: 0,
     };
+    console.log(searchData);
     await axios
       .get("http://localhost:8080/api/flightsearch", { params: searchData })
       .then((response) => {
@@ -44,13 +58,19 @@ const Input = () => {
 
   const handleInputChange = (e: React.ChangeEvent<EventTarget>) => {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
-    setFlightSearch({
-      ...flightSearch,
-      [name]: value,
-    });
     setFormState({
       ...formState,
-      [name]: value,
+      [name]:
+        name === "adultPassengers" || name === "childPassengers"
+          ? parseInt(value)
+          : value,
+    });
+    setFlightSearch({
+      ...flightSearch,
+      [name]:
+        name === "adultPassengers" || name === "childPassengers"
+          ? parseInt(value)
+          : value,
     });
   };
 
@@ -145,16 +165,18 @@ const Input = () => {
             onChange={handleInputChange}
           />
         </div>
-        <div className="returnDate">
-          <label htmlFor="to_date">Return</label>
-          <input
-            id="to_date"
-            name="returnAt"
-            type="date"
-            value={formState.returnAt}
-            onChange={handleInputChange}
-          />
-        </div>
+        {formState.returnflight === "true" && (
+          <div className="returnDate">
+            <label htmlFor="to_date">Return</label>
+            <input
+              id="to_date"
+              name="returnAt"
+              type="date"
+              value={formState.returnAt}
+              onChange={handleInputChange}
+            />
+          </div>
+        )}
       </div>
       <hr />
       <button>Find Flights</button>

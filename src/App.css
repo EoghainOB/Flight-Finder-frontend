@@ -59,7 +59,6 @@ hr {
 }
 
 .input-container {
-  padding-top: 10px;
   padding-bottom: 10px;
   margin: 8px;
   border-radius: 10px;
@@ -192,4 +191,32 @@ button {
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
+}
+
+.flightdata {
+  text-align: center;
+}
+
+.flightdata h5 {
+  margin-bottom: 5px;
+  color: rgb(9, 188, 248);
+}
+
+.flightdata h2 {
+  margin-bottom: 6px;
+}
+
+.flightdetails {
+  text-align: center;
+  width: 100%;
+}
+
+.flightdetails button {
+  margin-top: 15px;
+}
+
+.pricing {
+  background-color: rgb(235, 235, 235);
+  padding: 10px;
+  border-radius: 3px;
 }

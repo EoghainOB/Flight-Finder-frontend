@@ -1,23 +1,27 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { FlightContextType, flightTypes } from "../types";
+import { FlightContextType, flightSearchtype, flightTypes } from "../types";
 
 type ContextProps = {
   children: React.ReactNode;
 };
 
-export const AllContext = createContext<FlightContextType>({
-  directFlights: [],
-  setDirectFlights: () => {},
-  indirectFlights: [],
-  setIndirectFlights: () => {},
-  destinations: [],
-});
+export const AllContext = createContext<FlightContextType | null>(null);
 
 export const Data = ({ children }: ContextProps) => {
   const [directFlights, setDirectFlights] = useState<flightTypes[]>([]);
   const [indirectFlights, setIndirectFlights] = useState<flightTypes[]>([]);
   const [destinations, setDestinations] = useState<string[]>([]);
+
+  const [flightSearch, setFlightSearch] = useState<flightSearchtype>({
+    departureDestination: "",
+    arrivalDestination: "",
+    returnflight: "true",
+    departureAt: "",
+    returnAt: "",
+    adultPassengers: 0,
+    childPassengers: 0,
+  });
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/flights").then((response) => {
@@ -40,6 +44,8 @@ export const Data = ({ children }: ContextProps) => {
         indirectFlights,
         directFlights,
         destinations,
+        flightSearch,
+        setFlightSearch,
       }}
     >
       {children}

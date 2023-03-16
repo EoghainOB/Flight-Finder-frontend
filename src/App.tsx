@@ -8,7 +8,7 @@ import AllContext from "./components/data";
 import { FlightContextType } from "./types";
 
 function App() {
-  const { indirectFlights } = useContext<FlightContextType>(AllContext);
+  const { indirectFlights } = useContext(AllContext) as FlightContextType;
   return (
     <div className="App">
       <Header />

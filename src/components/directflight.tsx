@@ -4,7 +4,7 @@ import { FlightContextType } from "../types";
 import Directdetails from "./directdetails";
 
 const DirectFlight = () => {
-  const { directFlights } = useContext<FlightContextType>(AllContext);
+  const { directFlights } = useContext(AllContext) as FlightContextType;
 
   return (
     <>

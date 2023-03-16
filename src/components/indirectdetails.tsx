@@ -1,26 +1,77 @@
-import React from "react";
+import { useContext } from "react";
+import AllContext from "./data";
+import { FlightContextType } from "../types";
 
 const Indirectdetails = (flight: any) => {
+  const { flightSearch } = useContext(AllContext) as FlightContextType;
+
   const group = flight.flight;
   const inbound = flight.flight.inboundFlight;
   const outbound = flight.flight.outboundFlight;
-  const departdate = new Date(outbound.departureAt);
 
-  console.log("depart", departdate);
+  const passengers =
+    //@ts-ignore
+    flightSearch.adultPassengers + flightSearch.childPassengers;
+  const totaloneway =
+    //@ts-ignore
+    flightSearch.adultPassengers * group.adultIndirect +
+    //@ts-ignore
+    flightSearch.childPassengers * group.childIndirect;
 
-  const arrivedate = new Date(outbound.arrivalAt);
+  const firstdeparturetime = new Date(outbound.departureAt);
+  const firstdepartDate = new Intl.DateTimeFormat().format(firstdeparturetime);
+  const firstarrivaltime = new Date(outbound.arrivalAt);
+  const firstarriveDate = new Intl.DateTimeFormat().format(firstarrivaltime);
+  const seconddeparturetime = new Date(inbound.departureAt);
+  const seconddepartDate = new Intl.DateTimeFormat().format(
+    seconddeparturetime
+  );
+  const secondarrivaltime = new Date(inbound.arrivalAt);
+  const secondarriveDate = new Intl.DateTimeFormat().format(secondarrivaltime);
 
-  console.log("GROUP", group);
+  const firstdepartTime = new Intl.DateTimeFormat("en-GB", {
+    timeStyle: "short",
+  }).format(firstdeparturetime);
+
+  const firstarriveTime = new Intl.DateTimeFormat("en-GB", {
+    timeStyle: "short",
+  }).format(firstarrivaltime);
+
+  const seconddepartTime = new Intl.DateTimeFormat("en-GB", {
+    timeStyle: "short",
+  }).format(seconddeparturetime);
+
+  const secondarriveTime = new Intl.DateTimeFormat("en-GB", {
+    timeStyle: "short",
+  }).format(secondarrivaltime);
 
   return (
-    <div>
-      <h3>{outbound.departureDestination}</h3>
-      <h3>{inbound.arrivalDestination}</h3>
-      <h3>via {outbound.arrivalDestination}</h3>
-      <h3>{departdate.toString()}</h3>
-      <h3>{arrivedate.toString()}</h3>
-      <h3>SEK {group.adultIndirect.toFixed(2)}</h3>
-      <h3>SEK {group.childIndirect.toFixed(2)}</h3>
+    <div className="flightdetails">
+      <div className="flightdata">
+        <h5>Departing: {firstdepartDate}</h5>
+        <h2>
+          {outbound.departureDestination} @ {firstdepartTime}
+        </h2>
+        <h5>Arriving: {firstarriveDate}</h5>
+        <h2>
+          {outbound.arrivalDestination} @ {firstarriveTime}
+        </h2>
+        <hr />
+        <h5>Departing: {seconddepartDate}</h5>
+        <h2>
+          {inbound.departureDestination} @ {seconddepartTime}
+        </h2>
+        <h5>Arriving: {secondarriveDate}</h5>
+        <h2>
+          {inbound.arrivalDestination} @ {secondarriveTime}
+        </h2>
+      </div>
+      <hr />
+      <div className="pricing">
+        <h5>Price for {passengers} passengers (oneway):</h5>
+        <h2>SEK {totaloneway.toFixed(2)}</h2>
+      </div>
+      <button>Select Flight</button>
     </div>
   );
 };
