@@ -31,8 +31,6 @@ const Directdetails = (flight: any) => {
   //@ts-ignore
   const returnflight = flightSearch.returnflight;
 
-  console.log("flightSearch", flightSearch);
-
   return (
     <div className="flightdetails">
       <div className="flightdata">
