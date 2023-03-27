@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import AllContext from "./data";
+import axios from "axios";
 import { FlightContextType } from "../types";
 
 const Directdetails = (flight: any) => {
-  const { flightSearch } = useContext(AllContext) as FlightContextType;
+  const { flightSearch, setDirectFlights, setIndirectFlights } = useContext(
+    AllContext
+  ) as FlightContextType;
   const singleflight = flight.flight.currentFlight;
+
+  console.log(flightSearch);
 
   const passengers =
     //@ts-ignore
@@ -31,6 +36,42 @@ const Directdetails = (flight: any) => {
   //@ts-ignore
   const returnflight = flightSearch.returnflight;
 
+  const purchaseFlight = () => {};
+
+  const selectFlight = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      outbound: {
+        itinerary_flight_id: singleflight.itinerary_flight_id,
+        seats: passengers,
+        adult: flightSearch.adultPassengers,
+        child: flightSearch.childPassengers,
+        total: totaloneway,
+        currency: singleflight.currency,
+      },
+    };
+    //@ts-ignore
+    const cart = JSON.parse(localStorage.getItem(`cart`)) || [];
+    cart.push(data);
+    localStorage.setItem(`cart`, JSON.stringify(cart));
+    const searchData = {
+      departureDestination: flightSearch.arrivalDestination,
+      arrivalDestination: flightSearch.departureDestination,
+      departureAt: flightSearch.returnAt,
+      seats: passengers,
+      priceRangeHigh: 10000,
+      priceRangeLow: 0,
+    };
+    console.log(searchData);
+    await axios
+      .get("http://localhost:8080/api/flightsearch", { params: searchData })
+      .then((response) => {
+        console.log("response", response);
+        setDirectFlights(response.data.data.direct);
+        setIndirectFlights(response.data.data.indirect);
+      });
+  };
+
   return (
     <div className="flightdetails">
       <div className="flightdata">
@@ -49,9 +90,9 @@ const Directdetails = (flight: any) => {
         <h2>SEK {totaloneway.toFixed(2)}</h2>
       </div>
       {returnflight === "false" ? (
-        <button>Purchase Flight</button>
+        <button onClick={purchaseFlight}>Purchase Flight</button>
       ) : (
-        <button>Select Flight</button>
+        <button onClick={selectFlight}>Select Flight</button>
       )}
     </div>
   );

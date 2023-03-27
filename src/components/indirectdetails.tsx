@@ -45,6 +45,31 @@ const Indirectdetails = (flight: any) => {
     timeStyle: "short",
   }).format(secondarrivaltime);
 
+  //@ts-ignore
+  const returnflight = flightSearch.returnflight;
+
+  const purchaseFlight = () => {};
+
+  const selectFlight = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      outbound: {
+        itinerary_flight_id: group.id,
+        seats: passengers,
+        adult: flightSearch.adultPassengers,
+        child: flightSearch.childPassengers,
+        total: totaloneway,
+        currency: inbound.currency,
+        returnFlight: flightSearch.returnAt,
+      },
+    };
+    console.log(data);
+    //@ts-ignore
+    const cart = JSON.parse(localStorage.getItem(`cart`)) || [];
+    cart.push(data);
+    localStorage.setItem(`cart`, JSON.stringify(cart));
+  };
+
   return (
     <div className="flightdetails">
       <div className="flightdata">
@@ -71,7 +96,11 @@ const Indirectdetails = (flight: any) => {
         <h5>Price for {passengers} passengers (oneway):</h5>
         <h2>SEK {totaloneway.toFixed(2)}</h2>
       </div>
-      <button>Select Flight</button>
+      {returnflight === "false" ? (
+        <button onClick={purchaseFlight}>Purchase Flight</button>
+      ) : (
+        <button onClick={selectFlight}>Select Flight</button>
+      )}
     </div>
   );
 };

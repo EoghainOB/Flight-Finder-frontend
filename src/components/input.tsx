@@ -78,35 +78,62 @@ const Input = () => {
       <div className="searchQuestion">
         <h2>Search flights</h2>
       </div>
-      <div className="fromInput">
-        <select
-          id="flight_from_input"
-          name="departureDestination"
-          onChange={handleInputChange}
-        >
-          <option value="">Departing from</option>
-          {destinations.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="toInput">
-        <select
-          id="flight_to_input"
-          name="arrivalDestination"
-          onChange={handleInputChange}
-        >
-          <option value="">Arriving at</option>
-          {destinations
-            .filter((option) => option !== formState.departureDestination)
-            .map((option) => (
+      <div className="fromtoSelect">
+        <div className="fromInput">
+          <select
+            id="flight_from_input"
+            name="departureDestination"
+            onChange={handleInputChange}
+          >
+            <option value="">Departing from</option>
+            {destinations.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))}
-        </select>
+          </select>
+        </div>
+        <div className="toInput">
+          <select
+            id="flight_to_input"
+            name="arrivalDestination"
+            onChange={handleInputChange}
+          >
+            <option value="">Arriving at</option>
+            {destinations
+              .filter((option) => option !== formState.departureDestination)
+              .map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+          </select>
+        </div>
+      </div>
+      <hr />
+      <div className="dateSelect">
+        <div className="departDate">
+          <label htmlFor="from_date">Depart</label>
+          <input
+            id="from_date"
+            name="departureAt"
+            type="date"
+            value={formState.departureAt}
+            onChange={handleInputChange}
+          />
+        </div>
+        {formState.returnflight === "true" && (
+          <div className="returnDate">
+            <label htmlFor="to_date">Return</label>
+            <input
+              id="to_date"
+              name="returnAt"
+              type="date"
+              value={formState.returnAt}
+              onChange={handleInputChange}
+            />
+          </div>
+        )}
       </div>
       <hr />
       <div className="dropdowns">
@@ -151,31 +178,6 @@ const Input = () => {
             <option value="5">5</option>
           </select>
         </div>
-      </div>
-      <hr />
-      <div className="dateSelect">
-        <div className="departDate">
-          <label htmlFor="from_date">Depart</label>
-          <input
-            id="from_date"
-            name="departureAt"
-            type="date"
-            value={formState.departureAt}
-            onChange={handleInputChange}
-          />
-        </div>
-        {formState.returnflight === "true" && (
-          <div className="returnDate">
-            <label htmlFor="to_date">Return</label>
-            <input
-              id="to_date"
-              name="returnAt"
-              type="date"
-              value={formState.returnAt}
-              onChange={handleInputChange}
-            />
-          </div>
-        )}
       </div>
       <hr />
       <button>Find Flights</button>
