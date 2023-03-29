@@ -63,7 +63,6 @@ const Indirectdetails = (flight: any) => {
         returnFlight: flightSearch.returnAt,
       },
     };
-    console.log(data);
     //@ts-ignore
     const cart = JSON.parse(localStorage.getItem(`cart`)) || [];
     cart.push(data);

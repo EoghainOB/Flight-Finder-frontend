@@ -11,14 +11,10 @@ const Directdetails = (flight: any) => {
 
   console.log(flightSearch);
 
-  const passengers =
-    //@ts-ignore
-    flightSearch.adultPassengers + flightSearch.childPassengers;
-  const totaloneway =
-    //@ts-ignore
-    flightSearch.adultPassengers * singleflight.adult +
-    //@ts-ignore
-    flightSearch.childPassengers * singleflight.child;
+  const passengers = (flightSearch.adultPassengers +
+    flightSearch.childPassengers) as number;
+  const totaloneway = (flightSearch.adultPassengers * singleflight.adult +
+    flightSearch.childPassengers * singleflight.child) as number;
 
   const departuretime = new Date(singleflight.departureAt);
   const departDate = new Intl.DateTimeFormat().format(departuretime);
@@ -33,7 +29,6 @@ const Directdetails = (flight: any) => {
     timeStyle: "short",
   }).format(arrivetime);
 
-  //@ts-ignore
   const returnflight = flightSearch.returnflight;
 
   const purchaseFlight = () => {};
@@ -50,8 +45,7 @@ const Directdetails = (flight: any) => {
         currency: singleflight.currency,
       },
     };
-    //@ts-ignore
-    const cart = JSON.parse(localStorage.getItem(`cart`)) || [];
+    const cart = JSON.parse(localStorage.getItem(`cart`) as any) || [];
     cart.push(data);
     localStorage.setItem(`cart`, JSON.stringify(cart));
     const searchData = {
