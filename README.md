@@ -1,6 +1,8 @@
 # Flight-Finder front end
 This mobile first front end application was created to work together with the Flight-Finder API (https://github.com/EoghainOB/Flight-Finder). Its a simple app that allows the user to search for flights and to return results with flight and pricing details regardless if it is a direct flight or if it has a layover. It has been created with Typescript and React and I plan to add the ability to select the return flight and purchase in future iterations.
 
+<img width=400 src="https://user-images.githubusercontent.com/110406695/228485630-7fe4e0fb-4fbc-4e66-a940-0a99f384919e.jpg"/>
+
 ## Installation
 - First install the Flight-Finder API
 - Clone this repository using `git clone`
