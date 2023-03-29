@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 * {
@@ -46,7 +46,7 @@ a {
 }
 
 .header h1 {
-  font-family: "Racing Sans One", cursive;
+  font-family: "Baloo Bhaijaan 2", cursive;
   font-size: 2.8em;
 }
 
@@ -86,6 +86,18 @@ input {
   padding: 10px;
 }
 
+.searchQuestionMain {
+  background-color: rgb(9, 188, 248);
+  width: 100%;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 700;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 2px;
+  border-radius: 6px;
+}
+
 .searchQuestion {
   width: 100%;
   text-align: center;
@@ -93,12 +105,6 @@ input {
   font-size: 1em;
   font-weight: 700;
   margin-bottom: 20px;
-}
-
-.searchQuestion h2 {
-  color: rgb(9, 188, 248);
-  font-size: 1.9em;
-  font-family: "Racing Sans One", cursive;
 }
 
 .toInput,
@@ -177,11 +183,17 @@ button {
   background-color: rgb(255, 255, 255);
 }
 
+.searchQuestionMain h2 {
+  color: rgb(255, 255, 255);
+  font-size: 1.9em;
+  font-family: "Baloo Bhaijaan 2", cursive;
+}
+
 .searchQuestion h2 {
   margin-top: 20px;
   color: rgb(9, 188, 248);
   font-size: 1.9em;
-  font-family: "Racing Sans One", cursive;
+  font-family: "Baloo Bhaijaan 2", cursive;
 }
 
 .details {

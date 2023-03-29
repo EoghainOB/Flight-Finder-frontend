@@ -75,7 +75,7 @@ const Input = () => {
 
   return (
     <form className="searchForm" onSubmit={searchFlights}>
-      <div className="searchQuestion">
+      <div className="searchQuestionMain">
         <h2>Search flights</h2>
       </div>
       <div className="fromtoSelect">
