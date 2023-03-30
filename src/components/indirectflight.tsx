@@ -8,13 +8,15 @@ const IndirectFlight = () => {
 
   return (
     <>
-      {indirectFlights.map((flight, index) => {
-        return (
-          <div key={index} className="details">
-            <Indirectdetails flight={flight} />
-          </div>
-        );
-      })}
+      {indirectFlights
+        ? indirectFlights?.map((flight, index) => {
+            return (
+              <div key={index} className="details">
+                <Indirectdetails flight={flight} />
+              </div>
+            );
+          })
+        : ""}
     </>
   );
 };

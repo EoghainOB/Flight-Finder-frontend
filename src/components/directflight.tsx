@@ -8,13 +8,15 @@ const DirectFlight = () => {
 
   return (
     <>
-      {directFlights.map((flight, index) => {
-        return (
-          <div key={index} className="details">
-            <Directdetails flight={flight} />
-          </div>
-        );
-      })}
+      {directFlights
+        ? directFlights.map((flight, index) => {
+            return (
+              <div key={index} className="details">
+                <Directdetails flight={flight} />
+              </div>
+            );
+          })
+        : ""}
     </>
   );
 };

@@ -1,22 +1,20 @@
 import { useContext } from "react";
 import AllContext from "./data";
+import axios from "axios";
 import { FlightContextType } from "../types";
 
 const Indirectdetails = (flight: any) => {
-  const { flightSearch } = useContext(AllContext) as FlightContextType;
+  const { flightSearch, setDirectFlights, setIndirectFlights, directFlights } =
+    useContext(AllContext) as FlightContextType;
 
   const group = flight.flight;
   const inbound = flight.flight.inboundFlight;
   const outbound = flight.flight.outboundFlight;
 
-  const passengers =
-    //@ts-ignore
-    flightSearch.adultPassengers + flightSearch.childPassengers;
-  const totaloneway =
-    //@ts-ignore
-    flightSearch.adultPassengers * group.adultIndirect +
-    //@ts-ignore
-    flightSearch.childPassengers * group.childIndirect;
+  const passengers = (flightSearch.adultPassengers +
+    flightSearch.childPassengers) as number;
+  const totaloneway = (flightSearch.adultPassengers * group.adultIndirect +
+    flightSearch.childPassengers * group.childIndirect) as number;
 
   const firstdeparturetime = new Date(outbound.departureAt);
   const firstdepartDate = new Intl.DateTimeFormat().format(firstdeparturetime);
@@ -54,19 +52,34 @@ const Indirectdetails = (flight: any) => {
     e.preventDefault();
     const data = {
       outbound: {
-        itinerary_flight_id: group.id,
+        itinerary_flight_id: group.itinerary_flight_id,
         seats: passengers,
         adult: flightSearch.adultPassengers,
         child: flightSearch.childPassengers,
         total: totaloneway,
-        currency: inbound.currency,
-        returnFlight: flightSearch.returnAt,
+        currency: group.currency,
       },
     };
-    //@ts-ignore
-    const cart = JSON.parse(localStorage.getItem(`cart`)) || [];
+    const cart = JSON.parse(localStorage.getItem(`cart`) as any) || [];
     cart.push(data);
     localStorage.setItem(`cart`, JSON.stringify(cart));
+    const searchData = {
+      departureDestination: flightSearch.arrivalDestination,
+      arrivalDestination: flightSearch.departureDestination,
+      departureAt: flightSearch.returnAt,
+      seats: passengers,
+      priceRangeHigh: 10000,
+      priceRangeLow: 0,
+    };
+    console.log("INDIRECT", searchData);
+    await axios
+      .get("http://localhost:8080/api/flightsearch", { params: searchData })
+      .then((response) => {
+        console.log("response", response.data.data.direct);
+        setDirectFlights(response.data.data.direct);
+        setIndirectFlights(response.data.data.indirect);
+        console.log("DirectFlights", directFlights);
+      });
   };
 
   return (

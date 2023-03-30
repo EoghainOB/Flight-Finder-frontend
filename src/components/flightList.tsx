@@ -11,11 +11,19 @@ const FlightList = () => {
   return (
     <div className="results-container">
       <div className="searchQuestion">
-        {directFlights.length > 0 && <h2>Direct Flights</h2>}
+        {directFlights.length > 0 ? (
+          <h2>Direct Flights</h2>
+        ) : (
+          <h4>Sorry, no direct flights available</h4>
+        )}
       </div>
       <DirectFlight />
       <div className="searchQuestion">
-        {indirectFlights.length > 0 && <h2>Indirect Flights</h2>}
+        {indirectFlights.length > 0 ? (
+          <h2>Indirect Flights</h2>
+        ) : (
+          <h4>Sorry, no indirect flights available</h4>
+        )}
       </div>
       <IndirectFlight />
     </div>
