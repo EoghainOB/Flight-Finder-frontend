@@ -8,14 +8,14 @@ import AllContext from "./components/data";
 import { FlightContextType } from "./types";
 
 function App() {
-  const { indirectFlights } = useContext(AllContext) as FlightContextType;
+  const { directFlights } = useContext(AllContext) as FlightContextType;
   return (
     <div className="App">
       <Header />
       <div className="input-container">
         <Input />
       </div>
-      {indirectFlights.length > 0 && <FlightList />}
+      {directFlights.length > 0 && <FlightList />}
       <Footer />
     </div>
   );

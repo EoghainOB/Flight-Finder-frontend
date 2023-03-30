@@ -42,6 +42,7 @@ const Input = () => {
       priceRangeHigh: 10000,
       priceRangeLow: 0,
     };
+    console.log("INPUT", searchData);
     await axios
       .get("http://localhost:8080/api/flightsearch", { params: searchData })
       .then((response) => {

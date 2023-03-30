@@ -4,12 +4,9 @@ import axios from "axios";
 import { FlightContextType } from "../types";
 
 const Directdetails = (flight: any) => {
-  const { flightSearch, setDirectFlights, setIndirectFlights } = useContext(
-    AllContext
-  ) as FlightContextType;
+  const { flightSearch, setDirectFlights, setIndirectFlights, directFlights } =
+    useContext(AllContext) as FlightContextType;
   const singleflight = flight.flight.currentFlight;
-
-  console.log(flightSearch);
 
   const passengers = (flightSearch.adultPassengers +
     flightSearch.childPassengers) as number;
@@ -56,13 +53,14 @@ const Directdetails = (flight: any) => {
       priceRangeHigh: 10000,
       priceRangeLow: 0,
     };
-    console.log(searchData);
+    console.log("DIRECT", searchData);
     await axios
       .get("http://localhost:8080/api/flightsearch", { params: searchData })
       .then((response) => {
-        console.log("response", response);
+        console.log("response", response.data.data.direct);
         setDirectFlights(response.data.data.direct);
         setIndirectFlights(response.data.data.indirect);
+        console.log("DirectFlights", directFlights);
       });
   };
 
