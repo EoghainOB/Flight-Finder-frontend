@@ -26,7 +26,7 @@ a {
 }
 
 .header {
-  background-color: rgb(9, 188, 248);
+  background-color: rgb(2, 135, 180);
   text-align: center;
   color: white;
   padding: 30px;
@@ -230,4 +230,44 @@ button {
   background-color: rgb(235, 235, 235);
   padding: 10px;
   border-radius: 3px;
+}
+.searchButton {
+  text-align: center;
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .flightdata {
+    display: flex;
+  }
+  .depart,
+  .arrive {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .pricingDetails {
+    display: flex;
+    flex-direction: column;
+  }
+  .inputVariables {
+    width: 100%;
+    display: flex;
+  }
+  .dateSelect {
+    padding-right: 10px;
+  }
+  .searchButton {
+    text-align: center;
+    width: 100%;
+  }
+  .departDate,
+  .returnDate {
+    display: flex;
+    align-items: center;
+  }
+  .dateSelect label {
+    margin-right: 10px;
+  }
 }

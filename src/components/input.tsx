@@ -112,76 +112,79 @@ const Input = () => {
         </div>
       </div>
       <hr />
-      <div className="dateSelect">
-        <div className="departDate">
-          <label htmlFor="from_date">Depart</label>
-          <input
-            id="from_date"
-            name="departureAt"
-            type="date"
-            value={formState.departureAt}
-            onChange={handleInputChange}
-          />
-        </div>
-        {formState.returnflight === "true" && (
-          <div className="returnDate">
-            <label htmlFor="to_date">Return</label>
+      <div className="inputVariables">
+        <div className="dateSelect">
+          <div className="departDate">
+            <label htmlFor="from_date">Depart</label>
             <input
-              id="to_date"
-              name="returnAt"
+              id="from_date"
+              name="departureAt"
               type="date"
-              value={formState.returnAt}
+              value={formState.departureAt}
               onChange={handleInputChange}
             />
           </div>
-        )}
+          {formState.returnflight === "true" && (
+            <div className="returnDate">
+              <label htmlFor="to_date">Return</label>
+              <input
+                id="to_date"
+                name="returnAt"
+                type="date"
+                value={formState.returnAt}
+                onChange={handleInputChange}
+              />
+            </div>
+          )}
+        </div>
+        <div className="dropdowns">
+          <div className="returnSelect">
+            <select
+              id="return_select"
+              name="returnflight"
+              value={formState.returnflight}
+              onChange={handleInputChange}
+            >
+              <option value="true">Round trip</option>
+              <option value="false">One-way</option>
+            </select>
+          </div>
+          <div className="passengersSelect">
+            <label htmlFor="adult_select">Adult:</label>
+            <select
+              id="adult_select"
+              name="adultPassengers"
+              value={formState.adultPassengers}
+              onChange={handleInputChange}
+            >
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <label htmlFor="child_select">Children:</label>
+            <select
+              id="child_select"
+              name="childPassengers"
+              value={formState.childPassengers}
+              onChange={handleInputChange}
+            >
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </div>
       </div>
       <hr />
-      <div className="dropdowns">
-        <div className="returnSelect">
-          <select
-            id="return_select"
-            name="returnflight"
-            value={formState.returnflight}
-            onChange={handleInputChange}
-          >
-            <option value="true">Round trip</option>
-            <option value="false">One-way</option>
-          </select>
-        </div>
-        <div className="passengersSelect">
-          <label htmlFor="adult_select">Adult:</label>
-          <select
-            id="adult_select"
-            name="adultPassengers"
-            value={formState.adultPassengers}
-            onChange={handleInputChange}
-          >
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <label htmlFor="child_select">Children:</label>
-          <select
-            id="child_select"
-            name="childPassengers"
-            value={formState.childPassengers}
-            onChange={handleInputChange}
-          >
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </div>
+      <div className="searchButton">
+        <button>Find Flights</button>
       </div>
-      <hr />
-      <button>Find Flights</button>
     </form>
   );
 };

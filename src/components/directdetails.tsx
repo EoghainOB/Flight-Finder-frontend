@@ -67,25 +67,45 @@ const Directdetails = (flight: any) => {
   return (
     <div className="flightdetails">
       <div className="flightdata">
-        <h5>Departing: {departDate}</h5>
-        <h2>
-          {singleflight.departureDestination} @ {departTime}
-        </h2>
-        <h5>Arriving: {arriveDate}</h5>
-        <h2>
-          {singleflight.arrivalDestination} @ {arriveTime}
-        </h2>
+        <div className="depart">
+          <div className="departingTitle">
+            <h5>Departing: {departDate}</h5>
+          </div>
+          <div className="departingTime">
+            <h2>
+              {singleflight.departureDestination} @ {departTime}
+            </h2>
+          </div>
+        </div>
+        <div className="arrive">
+          <div className="arrivingTitle">
+            <h5>Arriving: {arriveDate}</h5>
+          </div>
+          <div className="arrivingTime">
+            <h2>
+              {singleflight.arrivalDestination} @ {arriveTime}
+            </h2>
+          </div>
+        </div>
       </div>
       <hr />
       <div className="pricing">
-        <h5>Price for {passengers} passengers (oneway):</h5>
-        <h2>SEK {totaloneway.toFixed(2)}</h2>
+        <div className="pricingDetails">
+          <div className="priceText">
+            <h5>Price for {passengers} passengers (oneway):</h5>
+          </div>
+          <div className="priceAmount">
+            <h2>SEK {totaloneway.toFixed(2)}</h2>
+          </div>
+        </div>
       </div>
-      {returnflight === "false" ? (
-        <button onClick={purchaseFlight}>Purchase Flight</button>
-      ) : (
-        <button onClick={selectFlight}>Select Flight</button>
-      )}
+      <div className="formButton">
+        {returnflight === "false" ? (
+          <button onClick={purchaseFlight}>Purchase Flight</button>
+        ) : (
+          <button onClick={selectFlight}>Select Flight</button>
+        )}
+      </div>
     </div>
   );
 };

@@ -85,23 +85,26 @@ const Indirectdetails = (flight: any) => {
   return (
     <div className="flightdetails">
       <div className="flightdata">
-        <h5>Departing: {firstdepartDate}</h5>
-        <h2>
-          {outbound.departureDestination} @ {firstdepartTime}
-        </h2>
-        <h5>Arriving: {firstarriveDate}</h5>
-        <h2>
-          {outbound.arrivalDestination} @ {firstarriveTime}
-        </h2>
-        <hr />
-        <h5>Departing: {seconddepartDate}</h5>
-        <h2>
-          {inbound.departureDestination} @ {seconddepartTime}
-        </h2>
-        <h5>Arriving: {secondarriveDate}</h5>
-        <h2>
-          {inbound.arrivalDestination} @ {secondarriveTime}
-        </h2>
+        <div className="depart">
+          <h5>Departing: {firstdepartDate}</h5>
+          <h2>
+            {outbound.departureDestination} @ {firstdepartTime}
+          </h2>
+          <h5>Arriving: {firstarriveDate}</h5>
+          <h2>
+            {outbound.arrivalDestination} @ {firstarriveTime}
+          </h2>
+        </div>
+        <div className="arrive">
+          <h5>Departing: {seconddepartDate}</h5>
+          <h2>
+            {inbound.departureDestination} @ {seconddepartTime}
+          </h2>
+          <h5>Arriving: {secondarriveDate}</h5>
+          <h2>
+            {inbound.arrivalDestination} @ {secondarriveTime}
+          </h2>
+        </div>
       </div>
       <hr />
       <div className="pricing">
